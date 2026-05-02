@@ -25,4 +25,8 @@ public class HomePage extends BasePage{
     public void deleteAccount() {
         click(CommonLocators.deleteAccountButtonLocator);
     }
+
+    public void clickLogoutButton() {
+        click(CommonLocators.logoutButtonLocator);
+    }
 }

@@ -12,8 +12,7 @@ public class CommonLocators {
     public static final By cartButtonLocator = By.xpath("//a[normalize-space()='Cart']");
     public static final By loggedUserLocator = By.xpath("//a[contains(text(),'Logged')]");
     public static final By deleteAccountButtonLocator = By.xpath("//a[contains(text(),'Delete')]");
-
-    //public static final By fullscreenAdsCloseButton = By.id("dismiss-button-element");
+    public static final By logoutButtonLocator = By.xpath("//a[contains(text(),'Logout')]");
 
     public static final By activeNavbarButton = By.xpath("//a[@href='/' and @style='color: orange;']");
 

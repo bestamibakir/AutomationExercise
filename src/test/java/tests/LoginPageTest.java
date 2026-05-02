@@ -41,4 +41,16 @@ public class LoginPageTest extends BasePageTest {
         Assert.assertTrue(loginPage.isIncorrectEmailOrPasswordMessageDisplayed(),"Kullanıcı adı veya şifre yanlış");
     }
 
+    @Test(dependsOnMethods = "registerForLogin")
+    public void logoutTest() {
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+
+        Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfa yüklenemedi!");
+        homePage.clickSignupLoginButton();
+        loginPage.fillLoginForm(randomPerson.email, randomPerson.password);
+        Assert.assertTrue(homePage.isUserLoggedIn(), "Login başarısız!");
+        homePage.clickLogoutButton();
+        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Logout başarısız, login sayfasına yönlendirilemedi!");
+    }
 }
