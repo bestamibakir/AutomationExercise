@@ -1,0 +1,32 @@
+package pages;
+
+import locators.LoginPageLocators;
+import org.openqa.selenium.WebDriver;
+import utils.ConfigReader;
+
+public class LoginPage extends BasePage {
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public void fillLoginForm(String email, String password) {
+        driver.findElement(LoginPageLocators.loginEmailInput).sendKeys(email);
+        driver.findElement(LoginPageLocators.loginPasswordInput).sendKeys(password);
+        driver.findElement(LoginPageLocators.loginButton).click();
+    }
+
+    public void fillSignUpForm(String firstName, String email){
+        sendKeys(LoginPageLocators.signUpNameInput, firstName);
+        sendKeys(LoginPageLocators.signUpEmailInput, email);
+        click(LoginPageLocators.signUpButton);
+    }
+
+    public boolean isLoginPageLoaded() {
+        return isElementExist(LoginPageLocators.loginFormTitle, Integer.parseInt(ConfigReader.get("timeout.default"))) ||
+                isElementExist(LoginPageLocators.signUpEmailInput, Integer.parseInt(ConfigReader.get("timeout.default")));
+    }
+
+    public boolean isIncorrectEmailOrPasswordMessageDisplayed() {
+        return isElementExist(LoginPageLocators.incorrectEmailOrPassword);
+    }
+}
