@@ -17,6 +17,8 @@ public class LoginPageLocators {
 
     public static final By incorrectEmailOrPassword = By.xpath("//p[contains(text(),'incorrect')]");
 
+    public static final By emailAlreadyExist = By.xpath("//p[contains(text(),'already exist')]");
+
 
     // SIGNUP FORM
     public static final By signUpFormTitle = By.xpath("//div[@class='signup-form']/h2[contains(text(),'New User Signup')]");

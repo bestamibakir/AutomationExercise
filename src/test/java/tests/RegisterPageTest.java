@@ -20,5 +20,25 @@ public class RegisterPageTest extends BasePageTest{
         accountDeletedPage.clickContinueButton();
     }
 
+    @Test
+    public void registerWithExistingEmail() {
+        registerNewUser();
+
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+
+        // Kullanıcı giriş yapmış durumda, önce çıkış yapıyoruz
+        Assert.assertTrue(homePage.isUserLoggedIn(), "Kullanıcı giriş yapmış olmalı!");
+        homePage.clickLogoutButton();
+
+        // Logout sonrası login sayfasına yönlendirilir
+        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login sayfası yüklenemedi!");
+
+        // Aynı email ile tekrar kayıt olmaya çalışıyoruz
+        loginPage.fillSignUpForm(randomPerson.firstName, randomPerson.email);
+
+        Assert.assertTrue(loginPage.isEmailAlreadyExistMessageDisplayed(),
+                "Email zaten kayıtlı uyarısı görüntülenemedi!");
+    }
 
 }

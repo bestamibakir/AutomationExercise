@@ -29,4 +29,8 @@ public class LoginPage extends BasePage {
     public boolean isIncorrectEmailOrPasswordMessageDisplayed() {
         return isElementExist(LoginPageLocators.incorrectEmailOrPassword);
     }
+
+    public boolean isEmailAlreadyExistMessageDisplayed() {
+        return isElementExist(LoginPageLocators.emailAlreadyExist);
+    }
 }
