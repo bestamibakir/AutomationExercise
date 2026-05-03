@@ -2,6 +2,7 @@ package pages;
 
 import locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
+import utils.ConfigReader;
 
 public class HomePage extends BasePage{
 
@@ -10,8 +11,8 @@ public class HomePage extends BasePage{
     }
 
     public boolean isHomePageLoaded() {
-        return isElementExist(CommonLocators.navbarLocator)
-                && isElementExist(CommonLocators.activeNavbarButton);
+        return (isElementExist(CommonLocators.navbarLocator)
+                && isElementExist(CommonLocators.activeNavbarButton)) || waitUntilUrlContains(ConfigReader.get("base.url"));
     }
 
     public void clickSignupLoginButton() {

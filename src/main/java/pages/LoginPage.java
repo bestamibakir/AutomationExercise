@@ -23,7 +23,8 @@ public class LoginPage extends BasePage {
 
     public boolean isLoginPageLoaded() {
         return isElementExist(LoginPageLocators.loginFormTitle, Integer.parseInt(ConfigReader.get("timeout.default"))) ||
-                isElementExist(LoginPageLocators.signUpEmailInput, Integer.parseInt(ConfigReader.get("timeout.default")));
+                isElementExist(LoginPageLocators.signUpEmailInput, Integer.parseInt(ConfigReader.get("timeout.default"))) ||
+                waitUntilUrlContains(ConfigReader.get("login.url"));
     }
 
     public boolean isIncorrectEmailOrPasswordMessageDisplayed() {

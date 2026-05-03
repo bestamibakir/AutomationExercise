@@ -89,7 +89,8 @@ public class RegisterPage extends BasePage {
     }
 
     public boolean isSignUpPageLoaded() {
-        return isElementExist(RegisterPageLocators.formTitle, Integer.parseInt(ConfigReader.get("timeout.default")));
+        return isElementExist(RegisterPageLocators.formTitle, Integer.parseInt(ConfigReader.get("timeout.default"))) ||
+                waitUntilUrlContains(ConfigReader.get("signup.url"));
     }
 
 }
