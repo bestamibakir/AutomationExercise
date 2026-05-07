@@ -2,6 +2,7 @@ package tests;
 
 import locators.CommonLocators;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.ProductDetailPage;
@@ -9,17 +10,20 @@ import pages.ProductsPage;
 
 public class ProductsPageTest extends BasePageTest{
 
+    private HomePage homePage;
+    private ProductsPage productsPage;
+    private ProductDetailPage productDetailPage;
+
+    @BeforeMethod
+    public void initPages() {
+        homePage = new HomePage(driver);
+        productsPage = new ProductsPage(driver);
+        productDetailPage = new ProductDetailPage(driver);
+    }
+
     @Test
-    public void checkProductsPageTest(){
-        HomePage homePage = new HomePage(driver);
-        ProductsPage productsPage = new ProductsPage(driver);
-        ProductDetailPage productDetailPage = new ProductDetailPage(driver);
-
-        Assert.assertTrue(homePage.isHomePageLoaded());
-        homePage.click(CommonLocators.productsButtonLocator);
-
-        Assert.assertTrue(productsPage.isProductsPageLoaded());
-        Assert.assertTrue(productsPage.checkProductListIsDisplayed());
+    public void checkProductsPageTest() {
+        navigateToProductsPage();
 
         String expectedName = productsPage.getFirstProductName();
         String expectedPrice = productsPage.getFirstProductPrice();
@@ -33,6 +37,22 @@ public class ProductsPageTest extends BasePageTest{
         Assert.assertEquals(actualPrice, expectedPrice);
     }
 
+    @Test
+    public void searchProductTest() {
+        navigateToProductsPage();
 
+        productsPage.searchProduct("men");
+
+        Assert.assertTrue(productsPage.checkProductListIsDisplayed(), "Ana sayfa yüklenemedi");
+        Assert.assertTrue(productsPage.allProductNamesContain("men"),
+                "Bazı ürün isimleri 'men' içermiyor!");
+    }
+
+    protected void navigateToProductsPage() {
+        Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfa yüklenemedi");
+        homePage.click(CommonLocators.productsButtonLocator);
+        Assert.assertTrue(productsPage.isProductsPageLoaded(), "Ürünler sayfası yüklenemedi");
+        Assert.assertTrue(productsPage.checkProductListIsDisplayed(), "Ürünler listelenemedi");
+    }
 
 }
