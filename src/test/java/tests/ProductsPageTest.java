@@ -41,6 +41,8 @@ public class ProductsPageTest extends BasePageTest{
     public void searchProductTest() {
         navigateToProductsPage();
 
+        Assert.assertTrue(productDetailPage.isProductDetailPageLoaded(), "Ürün etay sayfası yüklenemedi");
+
         productsPage.searchProduct("men");
 
         Assert.assertTrue(productsPage.checkProductListIsDisplayed(), "Ana sayfa yüklenemedi");
