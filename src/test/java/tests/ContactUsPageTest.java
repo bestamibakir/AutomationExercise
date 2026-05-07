@@ -3,16 +3,21 @@ package tests;
 import base.RandomContactUsData;
 import locators.CommonLocators;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.ContactUsPage;
-import pages.HomePage;
 
 public class ContactUsPageTest extends BasePageTest {
 
+    private ContactUsPage contactUsPage;
+
+    @BeforeMethod
+    public void initPages() {
+        contactUsPage = new ContactUsPage(driver);
+    }
+
     @Test
     public void contactUsFormTest() {
-        HomePage homePage = new HomePage(driver);
-        ContactUsPage contactUsPage = new ContactUsPage(driver);
         RandomContactUsData randomContactUsData = new RandomContactUsData();
 
         Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfa yüklenemedi!");
@@ -28,7 +33,6 @@ public class ContactUsPageTest extends BasePageTest {
         contactUsPage.clickSubmitButton();
         contactUsPage.acceptAlert();
         Assert.assertTrue(contactUsPage.isSuccessMessageVisible(), "Başarı mesajı görüntülenemedi!");
-
 
         homePage.click(CommonLocators.homePageButtonLocator);
         Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfaya dönülemedi!");

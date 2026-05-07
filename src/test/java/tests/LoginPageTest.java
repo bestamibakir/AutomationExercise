@@ -1,12 +1,22 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.AccountDeletedPage;
-import pages.HomePage;
 import pages.LoginPage;
 
 public class LoginPageTest extends BasePageTest {
+
+
+    private LoginPage loginPage;
+    private AccountDeletedPage accountDeletedPage;
+
+    @BeforeMethod
+    public void initPages() {
+        loginPage = new LoginPage(driver);
+        accountDeletedPage = new AccountDeletedPage(driver);
+    }
 
     @Test
     public void registerForLogin() {
@@ -17,9 +27,6 @@ public class LoginPageTest extends BasePageTest {
     // dependsOnMethod = {"method1", "method2"} şeklinde yazılır.
     @Test(dependsOnMethods = "registerForLogin")
     public void successLoginTest() {
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        AccountDeletedPage accountDeletedPage = new AccountDeletedPage(driver);
 
         Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfa yüklenemedi!");
         homePage.clickSignupLoginButton();
@@ -32,8 +39,6 @@ public class LoginPageTest extends BasePageTest {
 
     @Test(dependsOnMethods = "registerForLogin")
     public void unsuccessLoginTest() {
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
 
         Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfa yüklenemedi!");
         homePage.clickSignupLoginButton();
@@ -43,8 +48,6 @@ public class LoginPageTest extends BasePageTest {
 
     @Test(dependsOnMethods = "registerForLogin")
     public void logoutTest() {
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
 
         Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfa yüklenemedi!");
         homePage.clickSignupLoginButton();

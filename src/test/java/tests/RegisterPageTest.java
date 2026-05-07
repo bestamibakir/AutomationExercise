@@ -1,18 +1,24 @@
 package tests;
 
-import base.RandomPersonForRegistration;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
 
 public class RegisterPageTest extends BasePageTest{
 
+    private LoginPage loginPage;
+    private AccountDeletedPage accountDeletedPage;
+
+    @BeforeMethod
+    public void initPages() {
+        loginPage = new LoginPage(driver);
+        accountDeletedPage = new AccountDeletedPage(driver);
+    }
+
     @Test
     public void registerUser() {
         registerNewUser();
-
-        HomePage homePage = new HomePage(driver);
-        AccountDeletedPage accountDeletedPage = new AccountDeletedPage(driver);
 
         Assert.assertTrue(homePage.isUserLoggedIn(), "Kullanıcı girişi başarılı olamadı");
         homePage.deleteAccount();
@@ -23,9 +29,6 @@ public class RegisterPageTest extends BasePageTest{
     @Test
     public void registerWithExistingEmail() {
         registerNewUser();
-
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
 
         // Kullanıcı giriş yapmış durumda, önce çıkış yapıyoruz
         Assert.assertTrue(homePage.isUserLoggedIn(), "Kullanıcı giriş yapmış olmalı!");

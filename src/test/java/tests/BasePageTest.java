@@ -22,6 +22,7 @@ public class BasePageTest {
 
     protected WebDriver driver;
     protected RandomPersonForRegistration randomPerson;
+    protected HomePage homePage;
 
     // her test başlamadan önce tarayıcıyı aç
     @BeforeMethod
@@ -41,6 +42,8 @@ public class BasePageTest {
         ((ChromeDriver) driver).executeCdpCommand("Network.enable", Map.of());
         driver.manage().window().maximize();
         driver.get(ConfigReader.get("base.url"));
+
+        homePage = new HomePage(driver);
     }
 
 

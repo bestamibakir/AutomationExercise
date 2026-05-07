@@ -4,19 +4,16 @@ import locators.CommonLocators;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.HomePage;
 import pages.ProductDetailPage;
 import pages.ProductsPage;
 
 public class ProductsPageTest extends BasePageTest{
 
-    private HomePage homePage;
     private ProductsPage productsPage;
     private ProductDetailPage productDetailPage;
 
     @BeforeMethod
     public void initPages() {
-        homePage = new HomePage(driver);
         productsPage = new ProductsPage(driver);
         productDetailPage = new ProductDetailPage(driver);
     }
