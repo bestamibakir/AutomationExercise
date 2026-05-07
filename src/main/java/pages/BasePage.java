@@ -91,4 +91,14 @@ public class BasePage {
         }
     }
 
+    public String getText(By by) {
+        try {
+            WebElement element = helper.visible(by);
+            return element.getText();
+        } catch (TimeoutException e) {
+            System.out.println("Element görünür değil: " + e.getMessage());
+            return null;
+        }
+    }
+
 }
