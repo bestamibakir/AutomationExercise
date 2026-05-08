@@ -36,7 +36,6 @@ public class HomePage extends BasePage{
     }
 
     public void subscribeWithEmail(String email) {
-        scrollToBottom();
         sendKeys(CommonLocators.footerSubscriptionEmailInput, email);
         click(CommonLocators.subscribeButtonLocator);
     }

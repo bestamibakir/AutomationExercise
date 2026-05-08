@@ -23,8 +23,10 @@ public class CartPageTest extends BasePageTest {
         homePage.click(CommonLocators.cartButtonLocator);
 
         Assert.assertTrue(cartPage.isCartPageLoaded(), "Sepet sayfası yüklenemedi");
-        homePage.subscribeWithEmail(ConfigReader.get("random.email"));
 
+        homePage.scrollToBottom();
+        Assert.assertTrue(homePage.isFooterVisible(), "Subscription yazısı görünmedi");
+        homePage.subscribeWithEmail(ConfigReader.get("random.email"));
         Assert.assertTrue(homePage.isSubscriptionSuccessVisible(), "Başarı mesajı görüntülenemedi!"
         );
     }
