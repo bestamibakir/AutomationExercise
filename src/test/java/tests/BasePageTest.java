@@ -23,6 +23,9 @@ public class BasePageTest {
     protected WebDriver driver;
     protected RandomPersonForRegistration randomPerson;
     protected HomePage homePage;
+    protected LoginPage loginPage;
+    protected RegisterPage registerPage;
+    protected AccountCreatedPage accountCreatedPage;
 
     // her test başlamadan önce tarayıcıyı aç
     @BeforeMethod
@@ -74,10 +77,10 @@ public class BasePageTest {
 
     protected void registerNewUser() {
         randomPerson = new RandomPersonForRegistration();
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        RegisterPage registerPage = new RegisterPage(driver);
-        AccountCreatedPage accountCreatedPage = new AccountCreatedPage(driver);
+        homePage = new HomePage(driver);
+        loginPage = new LoginPage(driver);
+        registerPage = new RegisterPage(driver);
+        accountCreatedPage = new AccountCreatedPage(driver);
 
         Assert.assertTrue(homePage.isHomePageLoaded(), "Ana sayfa yüklenemedi!");
         homePage.clickSignupLoginButton();

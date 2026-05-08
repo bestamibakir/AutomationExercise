@@ -25,6 +25,15 @@ public class BasePage {
         }
     }
 
+    public boolean isElementVisible(By by) {
+        try {
+            helper.visible(by);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
     public boolean isElementExist(By by){
         return isElementExist(by, Integer.parseInt(ConfigReader.get("timeout.default")));
     }
@@ -99,6 +108,10 @@ public class BasePage {
             System.out.println("Element görünür değil: " + e.getMessage());
             return null;
         }
+    }
+
+    public void scrollToBottom() {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
 }

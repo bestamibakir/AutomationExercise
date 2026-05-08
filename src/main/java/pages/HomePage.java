@@ -30,4 +30,14 @@ public class HomePage extends BasePage{
     public void clickLogoutButton() {
         click(CommonLocators.logoutButtonLocator);
     }
+
+    public void subscribeWithEmail(String email) {
+        scrollToBottom();
+        sendKeys(CommonLocators.footerSubscription, email);
+        click(CommonLocators.subscribeButtonLocator);
+    }
+
+    public boolean isSubscriptionSuccessVisible() {
+        return isElementVisible(CommonLocators.subscriptionSuccessText);
+    }
 }
