@@ -31,9 +31,13 @@ public class HomePage extends BasePage{
         click(CommonLocators.logoutButtonLocator);
     }
 
+    public boolean isFooterVisible(){
+        return isElementExist(CommonLocators.footerSubscriptionText);
+    }
+
     public void subscribeWithEmail(String email) {
         scrollToBottom();
-        sendKeys(CommonLocators.footerSubscription, email);
+        sendKeys(CommonLocators.footerSubscriptionEmailInput, email);
         click(CommonLocators.subscribeButtonLocator);
     }
 

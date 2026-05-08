@@ -15,7 +15,8 @@ public class CommonLocators {
     public static final By loggedUserLocator = By.xpath("//a[contains(text(),'Logged')]");
     public static final By deleteAccountButtonLocator = By.xpath("//a[contains(text(),'Delete')]");
     public static final By logoutButtonLocator = By.xpath("//a[contains(text(),'Logout')]");
-    public static final By footerSubscription = By.id("susbscribe_email");
+    public static final By footerSubscriptionText = By.xpath("//div[@class='single-widget']//h2");
+    public static final By footerSubscriptionEmailInput = By.id("susbscribe_email");
     public static final By subscriptionSuccessText = By.cssSelector("#success-subscribe .alert-success");
     public static final By subscribeButtonLocator = By.id("subscribe");
 
