@@ -2,7 +2,11 @@ package pages;
 
 import locators.CartPageLocators;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import utils.ConfigReader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartPage extends BasePage {
     public CartPage(WebDriver driver) {
@@ -15,50 +19,44 @@ public class CartPage extends BasePage {
                         Integer.parseInt(ConfigReader.get("timeout.default")));
     }
 
-    public String getProductNameByIndex(int index){
-        return getText(CartPageLocators.getShoppingCartProductNameByIndex(index));
-    }
+    public List<Integer> getAllProductPricesAsInt() {
+        List<WebElement> priceElements = getAllVisibleElements(CartPageLocators.allCartPrices);
+        List<Integer> pricesList = new ArrayList<>();
 
-    public String getProductPriceByIndex(int index){
-        return getText(CartPageLocators.getShoppingCartProductPriceByIndex(index));
-    }
-
-    public String getProductQuantityByIndex(int index){
-        return getText(CartPageLocators.getShoppingCartProductQuantityByIndex(index));
-    }
-
-    public String getProductTotalPriceByIndex(int index){
-        return getText(CartPageLocators.getShoppingCartProductTotalPriceByIndex(index));
-    }
-
-    public int getProductPriceAsInt(int index) {
-        String priceText = getProductPriceByIndex(index);
-
-        if (priceText == null || priceText.isEmpty()) {
-            return 0;
+        for (WebElement element : priceElements) {
+            String text = element.getText(); // Örn: "Rs. 500"
+            pricesList.add(Integer.parseInt(text.replaceAll("[^0-9]", ""))); // 500 olarak listeye ekle
         }
-
-        return Integer.parseInt(priceText.replaceAll("[^0-9]", ""));
+        return pricesList;
     }
 
-    public int getProductQuantityAsInt(int index) {
-        String quantityText = getProductQuantityByIndex(index);
+    public List<Integer> getAllProductQuantitiesAsInt() {
+        List<WebElement> quantityElements = getAllVisibleElements(CartPageLocators.allCartQuantities);
+        List<Integer> quantityList = new ArrayList<>();
 
-        if (quantityText == null || quantityText.isEmpty()) {
-            return 0;
+        for (WebElement element : quantityElements) {
+            quantityList.add(Integer.parseInt(element.getText().replaceAll("[^0-9]", "")));
         }
-
-        return Integer.parseInt(quantityText.replaceAll("[^0-9]", ""));
+        return quantityList;
     }
 
-    public int getProductTotalPriceAsInt(int index) {
-        String totalPriceText = getProductTotalPriceByIndex(index);
+    public List<Integer> getAllProductTotalPricesAsInt() {
+        List<WebElement> totalElements = getAllVisibleElements(CartPageLocators.allCartTotalPrices);
+        List<Integer> totalList = new ArrayList<>();
 
-        if (totalPriceText == null || totalPriceText.isEmpty()) {
-            return 0;
+        for (WebElement element : totalElements) {
+            totalList.add(Integer.parseInt(element.getText().replaceAll("[^0-9]", "")));
         }
+        return totalList;
+    }
 
-        return Integer.parseInt(totalPriceText.replaceAll("[^0-9]", ""));
+    public List<String> getAllProductNames() {
+        List<WebElement> productNameElements = getAllVisibleElements(CartPageLocators.allCartNames);
+        List<String> productNames = new ArrayList<>();
+        for (WebElement element : productNameElements) {
+            productNames.add(element.getText());
+        }
+        return productNames;
     }
 
 }

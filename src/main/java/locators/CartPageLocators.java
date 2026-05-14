@@ -6,22 +6,9 @@ public class CartPageLocators {
 
     public static final By shoppingCartText = By.cssSelector(".breadcrumb li.active");
 
-    public static By getShoppingCartProductNameByIndex(int index){
-        return By.xpath("(//table[@id='cart_info_table']//h4/a)["+ index +"]");
-    }
-
-    public static By getShoppingCartProductPriceByIndex(int index){
-        return By.xpath("(//table[@id='cart_info_table']//td[@class='cart_price']//p)["+ index +"]");
-    }
-
-    public static By getShoppingCartProductQuantityByIndex(int index){
-        return By.xpath("(//table[@id='cart_info_table']//td[@class='cart_quantity']//button)["+ index +"]");
-    }
-
-    public static By getShoppingCartProductTotalPriceByIndex(int index){
-        return By.xpath("(//table[@id='cart_info_table']//td[@class='cart_total']/p[@class='cart_total_price'])["+ index +"]");
-    }
-
-
+    public static final By allCartNames = By.xpath("//table[@id='cart_info_table']//h4/a");
+    public static final By allCartPrices = By.xpath("//table[@id='cart_info_table']//td[@class='cart_price']//p");
+    public static final By allCartQuantities = By.xpath("//table[@id='cart_info_table']//td[@class='cart_quantity']//button");
+    public static final By allCartTotalPrices = By.xpath("//table[@id='cart_info_table']//td[@class='cart_total']/p[@class='cart_total_price']");
 
 }

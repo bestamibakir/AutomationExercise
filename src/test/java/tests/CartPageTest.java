@@ -9,6 +9,9 @@ import pages.CartPage;
 import pages.ProductsPage;
 import utils.ConfigReader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartPageTest extends BasePageTest {
 
     private CartPage cartPage;
@@ -41,44 +44,61 @@ public class CartPageTest extends BasePageTest {
         homePage.click(CommonLocators.productsButtonLocator);
         Assert.assertTrue(productsPage.isProductsPageLoaded(), "Ürünler sayfası yüklenemedi");
 
+        // ProductPage'de sepete eklenecek olan
+        // ürünlerin isimlerini ve fiyatlarını
+        // boş listelere yazarak
+        // CartPage'de karşılaştırmasını yapabiliyoruz.
+        List<String> expectedProductNames = new ArrayList<>();
+        List<Integer> expectedProductPrices = new ArrayList<>();
+
         int firstProductIndex = 1;
-        int secondProductIndex = 2;
-
-        String productPageProductName1 = productsPage.getProductNameByIndex(firstProductIndex);
-        int productPageProductPrice1 = productsPage.getProductPriceAsInt(firstProductIndex);
-
+        expectedProductNames.add(productsPage.getProductNameByIndex(firstProductIndex));
+        expectedProductPrices.add(productsPage.getProductPriceAsInt(firstProductIndex));
         productsPage.hoverAndClickProductByIndex(firstProductIndex);
         homePage.click(ProductPageLocators.continueButton);
 
-        String productPageProductName2 = productsPage.getProductNameByIndex(secondProductIndex);
-        int productPageProductPrice2 = productsPage.getProductPriceAsInt(secondProductIndex);
-
+        int secondProductIndex = 2;
+        expectedProductNames.add(productsPage.getProductNameByIndex(secondProductIndex));
+        expectedProductPrices.add(productsPage.getProductPriceAsInt(secondProductIndex));
         productsPage.hoverAndClickProductByIndex(secondProductIndex);
         homePage.click(ProductPageLocators.viewCartButton);
 
 
-        String cartPageProductName1 = cartPage.getProductNameByIndex(firstProductIndex);
-        int cartPageProductPrice1 = cartPage.getProductPriceAsInt(firstProductIndex);
-        int cartPageProductQuantity1 = cartPage.getProductQuantityAsInt(firstProductIndex);
-        int cartPageProductTotal1 = cartPage.getProductTotalPriceAsInt(firstProductIndex);
+        // CartPage'de sepetteki tüm ürünlerin
+        // isimlerini, fiyatlarını, miktarlarını ve toplam fiyatlarını
+        // listeye ekleyerek for döngüsü kullanarak
+        // dinamik bir karşılaştırma yapabileceğiz.
+        List<String> actualProductNames = cartPage.getAllProductNames();
+        List<Integer> actualProductPrices = cartPage.getAllProductPricesAsInt();
+        List<Integer> actualProductQuantities = cartPage.getAllProductQuantitiesAsInt();
+        List<Integer> actualProductTotals = cartPage.getAllProductTotalPricesAsInt();
 
-        int calculatedTotal1 = cartPageProductPrice1 * cartPageProductQuantity1;
+//        aşağıdaki for döngüsü
+//        -> Assert.assertEquals(actualProductNames, expectedProductNames, "Sepetteki ürün isimleri eklenenlerle uyuşmuyor!");
+//        işlemi yerine de kullanılabilir ama
+//        java(testng ya da junit) Assertte bizim yerimize liste boyut kontrolü yapar,
+//        eğer listeler aynı boyuttaysa
+//        karşılaştırılan listelerin aynı indexlerindeki elemanlar
+//        otomatik olarak karşılaştırılır.
+//
+//        for (int i = 0; i < expectedList.size(); i++) {
+//            Assert.assertEquals(actualList.get(i), expectedList.get(i));
+//        }
 
-        String cartPageProductName2 = cartPage.getProductNameByIndex(secondProductIndex);
-        int cartPageProductPrice2 = cartPage.getProductPriceAsInt(secondProductIndex);
-        int cartPageProductQuantity2 = cartPage.getProductQuantityAsInt(secondProductIndex);
-        int cartPageProductTotal2 = cartPage.getProductTotalPriceAsInt(secondProductIndex);
+        // ProductPage'den gelen ürünlerle
+        // CartPage'deki ürünlerin isim ve fiyat karşılaştırması
+        Assert.assertEquals(actualProductNames, expectedProductNames, "Sepetteki ürün isimleri eklenenlerle uyuşmuyor!");
+        Assert.assertEquals(actualProductPrices, expectedProductPrices, "Sepetteki ürün fiyatları eklenenlerle uyuşmuyor!");
 
-        int calculatedTotal2 = cartPageProductPrice2 * cartPageProductQuantity2;
+        // sepetteki ürün bilgilerinin kontrolü
+        for (int i = 0; i < actualProductPrices.size(); i++) {
+            int price = actualProductPrices.get(i);
+            int quantity = actualProductQuantities.get(i);
+            int actualTotal = actualProductTotals.get(i);
 
-        Assert.assertEquals(productPageProductName1, cartPageProductName1, "Ürün isimleri uyumsuz");
-        Assert.assertEquals(productPageProductPrice1, cartPageProductPrice1, "Ürün fiyatları uyumsuz");
-
-        Assert.assertEquals(productPageProductName2, cartPageProductName2, "Ürün isimleri uyumsuz");
-        Assert.assertEquals(productPageProductPrice2, cartPageProductPrice2, "Ürün fiyatları uyumsuz");
-
-        Assert.assertEquals(cartPageProductTotal1, calculatedTotal1, "Sepetteki ürünün toplam fiyatı yanlış hesaplanmış!");
-        Assert.assertEquals(cartPageProductTotal2, calculatedTotal2, "Sepetteki ürünün toplam fiyatı yanlış hesaplanmış!");
+            int expectedTotal = price * quantity;
+            Assert.assertEquals(actualTotal, expectedTotal, (i + 1) + ". ürünün toplam fiyatı formüle uymuyor!");
+        }
 
     }
 
