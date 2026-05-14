@@ -5,6 +5,8 @@ import org.openqa.selenium.*;
 import utils.ConfigReader;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BasePage {
     protected WebDriver driver;
@@ -44,6 +46,17 @@ public class BasePage {
             return true;
         } catch (TimeoutException e) {
             return false;
+        }
+    }
+
+    public List<WebElement> getAllVisibleElements(By by) {
+        try {
+            // Elemanları bekleyip getirir
+            return helper.allVisible(by);
+        } catch (TimeoutException e) {
+            System.out.println("Elementler zamanında görünür olmadı: " + e.getMessage());
+            // Hata verirse çökmek yerine boş liste döner
+            return new ArrayList<>();
         }
     }
 

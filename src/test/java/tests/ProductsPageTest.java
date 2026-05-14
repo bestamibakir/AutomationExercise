@@ -27,11 +27,17 @@ public class ProductsPageTest extends BasePageTest{
 
         productsPage.clickFirstViewProductButton();
 
+        Assert.assertTrue(productDetailPage.isProductDetailPageLoaded(), "Ürün detay sayfası yüklenemedi");
+
         String actualName = productDetailPage.getProductName();
         String actualPrice = productDetailPage.getProductPrice();
 
         Assert.assertEquals(actualName, expectedName);
         Assert.assertEquals(actualPrice, expectedPrice);
+        Assert.assertTrue(productDetailPage.isProductConditionVisible(), "Ürün kondisyonu görüntülenemedi");
+        Assert.assertTrue(productDetailPage.isProductBrandVisible(), "Ürün markası görüntülenemedi");
+        Assert.assertTrue(productDetailPage.isProductCategoryVisible(), "Ürün kategorisi görüntülenemedi");
+        Assert.assertTrue(productDetailPage.isProductAvailabilityVisible(), "Ürün mevcudiyeti görüntülenemedi");
     }
 
     @Test
@@ -40,7 +46,7 @@ public class ProductsPageTest extends BasePageTest{
 
         productsPage.searchProduct("men");
 
-        Assert.assertTrue(productsPage.checkProductListIsDisplayed(), "Ana sayfa yüklenemedi");
+        Assert.assertTrue(productsPage.checkProductListIsDisplayed(), "Ürünler listelenemedi");
         Assert.assertTrue(productsPage.allProductNamesContain("men"),
                 "Bazı ürün isimleri 'men' içermiyor!");
     }

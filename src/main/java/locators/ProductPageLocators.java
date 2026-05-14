@@ -13,6 +13,25 @@ public class ProductPageLocators {
     public static final By firstProductName = By.xpath("(//div[@class='productinfo text-center']//p)[1]");
     public static final By firstProductPrice = By.xpath("(//div[@class='productinfo text-center']//h2)[1]");
 
+    public static final By continueButton = By.xpath("//button[contains(text(), 'Continue')]");
+    public static final By viewCartButton = By.cssSelector(".modal-body a[href='/view_cart']");
+
+    public static By getProductCardByIndex(int index) {
+        return By.xpath("(//div[@class='product-image-wrapper'])[" + index + "]");
+    }
+
+    public static By getProductNameByIndex(int index) {
+        return By.xpath("(//div[@class='productinfo text-center']//p)[" + index + "]");
+    }
+
+    public static By getProductPriceByIndex(int index) {
+        return By.xpath("(//div[@class='productinfo text-center']//h2)[" + index + "]");
+    }
+
+    public static By getAddToCartOverlayByIndex(int index) {
+        return By.xpath("(//div[@class='product-overlay']//a[contains(@class, 'add-to-cart')])[" + index + "]");
+    }
+
     public static final By searchInput = By.id("search_product");
     public static final By searchButton = By.id("submit_search");
 

@@ -20,7 +20,7 @@ public class ContactUsPage extends BasePage {
     }
 
     public void uploadFile(String filePath) {
-        driver.findElement(ContactUsPageLocators.uploadFileInput).sendKeys(filePath);
+        sendKeys(ContactUsPageLocators.uploadFileInput, filePath);
     }
 
     public void clickSubmitButton() {

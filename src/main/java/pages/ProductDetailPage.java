@@ -21,4 +21,20 @@ public class ProductDetailPage extends BasePage {
     public String getProductPrice() {
         return getText(ProductDetailPageLocators.detailProductPrice);
     }
+
+    public boolean isProductCategoryVisible() {
+        return isElementVisible(ProductDetailPageLocators.detailProductCategory);
+    }
+
+    public boolean isProductConditionVisible() {
+        return isElementVisible(ProductDetailPageLocators.detailProductCondition);
+    }
+
+    public boolean isProductBrandVisible() {
+        return isElementVisible(ProductDetailPageLocators.detailProductBrand);
+    }
+
+    public boolean isProductAvailabilityVisible() {
+        return isElementVisible(ProductDetailPageLocators.detailProductAvailability);
+    }
 }

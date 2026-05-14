@@ -10,9 +10,9 @@ public class LoginPage extends BasePage {
     }
 
     public void fillLoginForm(String email, String password) {
-        driver.findElement(LoginPageLocators.loginEmailInput).sendKeys(email);
-        driver.findElement(LoginPageLocators.loginPasswordInput).sendKeys(password);
-        driver.findElement(LoginPageLocators.loginButton).click();
+        sendKeys(LoginPageLocators.loginEmailInput, email);
+        sendKeys(LoginPageLocators.loginPasswordInput, password);
+        click(LoginPageLocators.loginButton);
     }
 
     public void fillSignUpForm(String firstName, String email){

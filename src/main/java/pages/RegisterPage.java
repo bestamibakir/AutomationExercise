@@ -59,13 +59,13 @@ public class RegisterPage extends BasePage {
         // burada direkt zincirleme işlem yapıyoruz.
         // Gün seçimi (sayısal: "15" gibi)
         try {
-            new Select(driver.findElement(RegisterPageLocators.dateOfBirthDayInput))
+            new Select(helper.visible(RegisterPageLocators.dateOfBirthDayInput))
                     .selectByVisibleText(birthDay);
             // Ay seçimi (tam isim: "January", "February" gibi)
-            new Select(driver.findElement(RegisterPageLocators.dateOfBirthMonthInput))
+            new Select(helper.visible(RegisterPageLocators.dateOfBirthMonthInput))
                     .selectByVisibleText(birthMonth);
             // Yıl seçimi (sayısal: "1990" gibi)
-            new Select(driver.findElement(RegisterPageLocators.dateOfBirthYearInput))
+            new Select(helper.visible(RegisterPageLocators.dateOfBirthYearInput))
                     .selectByVisibleText(birthYear);
         } catch (ElementNotInteractableException e) {
             throw new RuntimeException(e);
@@ -73,7 +73,7 @@ public class RegisterPage extends BasePage {
     }
 
     public void selectNewsletterCheckbox(){
-        WebElement checkbox = driver.findElement(RegisterPageLocators.newsletterCheckbox);
+        WebElement checkbox = helper.visible(RegisterPageLocators.newsletterCheckbox);
 
         if (!checkbox.isSelected()){
             click(RegisterPageLocators.newsletterCheckbox);
@@ -81,7 +81,7 @@ public class RegisterPage extends BasePage {
     }
 
     public void selectOfferCheckbox(){
-        WebElement checkbox = driver.findElement(RegisterPageLocators.offerCheckbox);
+        WebElement checkbox = helper.visible(RegisterPageLocators.offerCheckbox);
 
         if (!checkbox.isSelected()){
             click(RegisterPageLocators.offerCheckbox);
